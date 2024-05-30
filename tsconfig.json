@@ -33,6 +33,7 @@
       "@database/*": ["src/database/*"],
       "@lib/*": ["src/lib/*"],
       "@dto/*": ["src/dto/*"],
+      "@helper/*": ["src/helper/*"],
       "@middleware/*": ["src/middleware/*"],
       "@module/*": ["src/module/*"],
       "@shared/*": ["src/shared/*"],
