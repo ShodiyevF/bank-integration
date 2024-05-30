@@ -32,6 +32,7 @@
       "@config/*": ["src/config/*"],
       "@database/*": ["src/database/*"],
       "@lib/*": ["src/lib/*"],
+      "@dto/*": ["src/dto/*"],
       "@middleware/*": ["src/middleware/*"],
       "@module/*": ["src/module/*"],
       "@shared/*": ["src/shared/*"],
