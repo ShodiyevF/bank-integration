@@ -1,11 +1,10 @@
-import { CreateDeptsNamespace } from "@dto/depts.dto";
 import validationMiddleware from "@middleware/validator.middleware";
+import { CreateDeptsDTOS } from "@dto/depts.dto";
+import { DeptsCtrl } from "./depts.ctrl";
 import { Router } from "express";
 
 const express = Router()
 
-express.post('/api/depts', validationMiddleware(CreateDeptsNamespace.createDeptsDto, 'body'), (req, res) =>{ 
-    console.log('ishladi');
-})
+express.post('/api/depts', validationMiddleware(CreateDeptsDTOS.createDeptsDto, 'body'), DeptsCtrl.createDept)
 
 export default express

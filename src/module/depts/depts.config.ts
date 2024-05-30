@@ -1,12 +1,12 @@
-import { CreateDeptsNamespace } from "@dto/depts.dto";
+import { CreateDeptsDTOS } from "@dto/depts.dto";
 
-function isCreateDeptsInterface(data: any): data is CreateDeptsNamespace.CreateDeptsInterface {                
+function isCreateDeptsInterface(data: any): data is CreateDeptsDTOS.CreateDeptsInterface {                
     for (const deptorObj of data) {
         if (typeof deptorObj !== 'object' || !deptorObj) return false;
         const deptor = deptorObj.deptor;
         
         if (
-            typeof deptor.pinfl !== 'number' ||
+            typeof deptor.deptor_pinfl !== 'string' ||
             typeof deptor.deptor_first_name !== 'string' ||
             typeof deptor.deptor_last_name !== 'string' ||
             typeof deptor.deptor_middle_name !== 'string' ||
@@ -33,8 +33,8 @@ function isCreateDeptsInterface(data: any): data is CreateDeptsNamespace.CreateD
     return true;
 }
 
-export namespace DeptConfigs {
-    export function createDeptValidation(value: CreateDeptsNamespace.CreateDeptsInterface[]): boolean {
+export namespace DeptsConfigs {
+    export function createDeptValidation(value: CreateDeptsDTOS.CreateDeptsInterface[]): boolean {
         try {
             return isCreateDeptsInterface(value)
         } catch (error: any) {
