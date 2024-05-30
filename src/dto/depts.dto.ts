@@ -68,7 +68,35 @@ namespace CreateDeptsDTOS {
     }
 }
 
+namespace GetDeptsDTOS {
+    export interface GetDeptsParamsInterface {
+        page: number,
+        count: number,
+        branch_id: number
+    }
+    
+    export const getDeptsQueryDto: DTO = {
+        page: {
+            required: true,
+            type: 'number',
+            min: 1,
+        },
+        count: {
+            required: true,
+            type: 'number',
+            min: 1,
+            max: 500,
+        },
+        branch_id: {
+            required: true,
+            type: 'number',
+            min: 1,
+        }
+    }
+}
+
 export {
     DeptsHelperDTOS,
-    CreateDeptsDTOS
+    CreateDeptsDTOS,
+    GetDeptsDTOS
 }
