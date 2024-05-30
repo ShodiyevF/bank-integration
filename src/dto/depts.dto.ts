@@ -1,10 +1,29 @@
-import { DeptConfigs } from "@module/depts/depts.config";
+import { DeptsConfigs } from "@module/depts/depts.config";
 import { DTO } from "@shared/validation/validation";
 
-namespace CreateDeptsNamespace {
+namespace DeptsHelperDTOS {
+    export interface SyncDeptorInterface {
+        deptor_pinfl: string
+        deptor_first_name: string
+        deptor_last_name: string
+        deptor_middle_name: string
+        deptor_born_data: string
+        deptor_passport_series: string
+        deptor_passport_number: number
+        deptor_passport_date: string
+    }
+
+    export interface SyncDeptInterface {
+        dept_branch_id: number
+        dept_contract_id: number
+        dept_sum: number
+    }
+}
+
+namespace CreateDeptsDTOS {
     export interface CreateDeptsInterface {
         deptor: {
-            pinfl: number
+            deptor_pinfl: string
             deptor_first_name: string
             deptor_last_name: string
             deptor_middle_name: string
@@ -22,7 +41,7 @@ namespace CreateDeptsNamespace {
     
     export const createDeptsMockdata: CreateDeptsInterface = {
         deptor: {
-            pinfl: 0,
+            deptor_pinfl: '',
             deptor_first_name: '',
             deptor_last_name: '',
             deptor_middle_name: '',
@@ -44,11 +63,12 @@ namespace CreateDeptsNamespace {
         deptors: {
             required: true,
             type: 'array',
-            custom_validation: [DeptConfigs.createDeptValidation, `Must be this schema`, createDeptsMockdata]
+            custom_validation: [DeptsConfigs.createDeptValidation, `Must be this schema`, createDeptsMockdata]
         }
     }
 }
 
 export {
-    CreateDeptsNamespace
+    DeptsHelperDTOS,
+    CreateDeptsDTOS
 }
