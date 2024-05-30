@@ -8,7 +8,7 @@ interface ValidationRule {
     minLength?: number;
     maxLength?: number;
     pattern?: RegExp[];
-    custom_validation?: [((value: any) => boolean), string];
+    custom_validation?: [((value: any) => boolean), string, object];
 }
 
 export interface DTO {
@@ -17,7 +17,10 @@ export interface DTO {
 
 interface ValidationResult {
     status: number;
-    error?: string;
+    error?: string | {
+        error: string;
+        schema?: object;
+    };
 }
 
 export function validator(dto: DTO, body: { [key: string]: any }): ValidationResult {
@@ -65,7 +68,12 @@ export function validator(dto: DTO, body: { [key: string]: any }): ValidationRes
                 }
 
                 if (rules.custom_validation && !rules.custom_validation[0](value)) {
-                    return { status: 400, error: `${key}: ${rules.custom_validation[1]}` };
+                    return { 
+                        status: 400, error: {
+                            error: `${key}: ${rules.custom_validation[1]}`,
+                            schema: rules.custom_validation[2]
+                        }
+                    };
                 }
             }
         }
