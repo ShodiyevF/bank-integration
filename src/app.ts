@@ -4,12 +4,12 @@ dotnev.config({ path: `.env` });
 import { logger, notFoundLogger } from '@middleware/logger.middleware';
 import { runConfigCronJobs } from '@config/cronjobs.config';
 import { initDefaultFolders } from '@config/defaultfiles';
-import expressFileupload from 'express-fileupload'
-import express, { Application } from 'express'
+import express, { Application, Router } from 'express';
+import expressFileupload from 'express-fileupload';
 import CORS_OPTIONS from '@config/cors';
-import cors from 'cors'
+import cors from 'cors';
 
-export default function app(routes: []) {
+export default function app(routes: Router[]) {
     const app: Application = express();
     const port: string = process.env.PORT || '3000';
 
@@ -42,7 +42,7 @@ export default function app(routes: []) {
         initDefaultFolders();
     }
 
-    function initRoutes(routes: []) {
+    function initRoutes(routes: Router[]) {
         routes.forEach(route => {
             app.use(route);
         });
