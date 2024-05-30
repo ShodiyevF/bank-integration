@@ -1,5 +1,5 @@
 import app from './app'
 
-import depts from './module/depts/depts.index';
+import debts from './module/debts/debts.index';
 
-app([depts]);
+app([debts]);

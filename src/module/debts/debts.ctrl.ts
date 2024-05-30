@@ -1,12 +1,12 @@
 import { controllerError } from "@lib/controllerError";
 import { Request, Response } from "express";
-import { DeptsModel } from "./depts.model";
+import { debtsModel } from "./debts.model";
 
-export namespace DeptsCtrl{
+export namespace debtsCtrl{
 
-    export async function createDept(req: Request, res: Response) {
+    export async function createdebt(req: Request, res: Response) {
         try {
-            DeptsModel.createDepts(req.body)
+            debtsModel.createdebts(req.body)
             return res.status(201).json({
                 status: 201,
                 message: 'muvaffaqiyatli'
@@ -16,12 +16,12 @@ export namespace DeptsCtrl{
         }
     }
 
-    export async function getDepts(req: Request, res: Response) {
+    export async function getdebts(req: Request, res: Response) {
         try {
             const page = req.query.page ? +req.query.page : 1
             const count = req.query.count ? +req.query.count : 1
             
-            const model = await DeptsModel.getDepts({
+            const model = await debtsModel.getdebts({
                 branch_id: req.query.branch_id ? +req.query.branch_id : 1,
                 count: count,
                 page: page,
@@ -29,7 +29,7 @@ export namespace DeptsCtrl{
 
             return res.status(200).json({
                 response: {
-                    deptors: model
+                    debtors: model
                 },
                 error: null,
                 meta: {
