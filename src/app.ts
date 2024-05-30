@@ -42,6 +42,17 @@ export default function app(routes: Router[]) {
         initDefaultFolders();
     }
 
+    function initTestApi() {
+        app.get('/api', (req, res) => {
+            return res.status(200).json({
+                result: {
+
+                },
+                error: null
+            })
+        })
+    }
+
     function initRoutes(routes: Router[]) {
         routes.forEach(route => {
             app.use(route);
@@ -53,7 +64,8 @@ export default function app(routes: Router[]) {
         initCronjobs();
         initMiddlewares();
         initRoutes(routes);
-        notFoundLogs()
+        notFoundLogs();
+        initTestApi()
         listener();
     }
 
