@@ -38,12 +38,9 @@ export namespace debtsCtrl{
                     last_page: 2,
                     per_page: count,
                     total: 820
-
                 }
             })
         } catch (error) {
-            console.log(error);
-            
             controllerError(res, error)
         }
     }

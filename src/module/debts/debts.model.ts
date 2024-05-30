@@ -1,7 +1,7 @@
 import { CreatedebtsDTOS, GetdebtsDTOS } from "@dto/debts.dto";
-import { debtsHelper } from "src/helpers/debts.helper";
+import { debtsHelper } from "@helper/debts.helper";
 import { Schema } from "@database/schema";
-import { eq, sql } from "drizzle-orm";
+import { desc, eq, sql } from "drizzle-orm";
 import { db } from "@database/pg";
 
 export namespace debtsModel {
@@ -20,6 +20,11 @@ export namespace debtsModel {
 
     export async function getdebts(params: GetdebtsDTOS.GetdebtsParamsInterface) {
         const { page, count, branch_id } = params
+        
+        // const debts = await db.select()
+        // .from(Schema.debts)
+        // .limit(count)
+        // .as('debts')
         
         const filterDebsByBranchId = await db.select({
             client: sql`json_build_object(
@@ -43,7 +48,10 @@ export namespace debtsModel {
         .from(Schema.debts)
         .innerJoin(Schema.debtors, eq(Schema.debtors.debtorId, Schema.debts.debtorId))
         .where(eq(Schema.debts.debtBranchId, branch_id))
-        .groupBy(Schema.debtors.debtorPinfl, Schema.debtors.debtorFirstName, Schema.debtors.debtorLastName, Schema.debtors.debtorMiddleName, Schema.debtors.debtorBornDate, Schema.debtors.debtorPassportSeries, Schema.debtors.debtorPassportNumber, Schema.debtors.debtorPassportDate)
+        .groupBy(Schema.debts.debtCreatedAt, Schema.debtors.debtorPinfl, Schema.debtors.debtorFirstName, Schema.debtors.debtorLastName, Schema.debtors.debtorMiddleName, Schema.debtors.debtorBornDate, Schema.debtors.debtorPassportSeries, Schema.debtors.debtorPassportNumber, Schema.debtors.debtorPassportDate)
+        .orderBy(Schema.debts.debtCreatedAt)
+        .offset(page-1)
+        .limit(count)
 
         return filterDebsByBranchId
     }
