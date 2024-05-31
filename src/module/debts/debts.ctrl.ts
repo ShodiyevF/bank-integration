@@ -2,26 +2,14 @@ import { controllerError } from "@lib/controllerError";
 import { Request, Response } from "express";
 import { DebtsModel } from "./debts.model";
 
-export namespace debtsCtrl{
+export namespace DebtsCtrl{
 
-    export async function createdebt(req: Request, res: Response) {
-        try {
-            DebtsModel.createdebts(req.body)
-            return res.status(201).json({
-                status: 201,
-                message: 'muvaffaqiyatli'
-            })
-        } catch (error) {
-            controllerError(res, error)
-        }
-    }
-
-    export async function getdebts(req: Request, res: Response) {
+    export async function getDebts(req: Request, res: Response) {
         try {
             const page = req.query.page ? +req.query.page : 1
             const count = req.query.count ? +req.query.count : 1
             
-            const model = await DebtsModel.getdebts({
+            const model = await DebtsModel.getDebts({
                 branch_id: req.query.branch_id ? +req.query.branch_id : 1,
                 count: count,
                 page: page,
@@ -39,6 +27,18 @@ export namespace debtsCtrl{
                     per_page: count,
                     total: 820
                 }
+            })
+        } catch (error) {
+            controllerError(res, error)
+        }
+    }
+
+    export async function createdebt(req: Request, res: Response) {
+        try {
+            DebtsModel.createdebts(req.body)
+            return res.status(201).json({
+                status: 201,
+                message: 'muvaffaqiyatli'
             })
         } catch (error) {
             controllerError(res, error)

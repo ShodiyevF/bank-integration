@@ -1,13 +1,13 @@
 import validationMiddleware from "@middleware/validator.middleware";
-import { CreatedebtsDTOS, GetdebtsDTOS } from "@dto/debts.dto";
-import { debtsCtrl } from "./debts.ctrl";
+import { CreatedebtsDTOS, GetDebtsDTOS } from "@dto/debts.dto";
+import { DebtsCtrl } from "./debts.ctrl";
 import { Router } from "express";
 
 const express = Router()
 
-express.get('/api/contract-debt/get-debtors-by-branch', validationMiddleware(GetdebtsDTOS.getdebtsQueryDto, 'query'), debtsCtrl.getdebts)
+express.get('/api/contract-debt/get-debtors-by-branch', validationMiddleware(GetDebtsDTOS.getDebtsQueryDto, 'query'), DebtsCtrl.getDebts)
 
-express.post('/api/debts', validationMiddleware(CreatedebtsDTOS.createdebtsDto, 'body'), debtsCtrl.createdebt)
+express.post('/api/debts', validationMiddleware(CreatedebtsDTOS.createdebtsDto, 'body'), DebtsCtrl.createdebt)
 
 
 export default express

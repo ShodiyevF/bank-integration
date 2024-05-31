@@ -68,14 +68,14 @@ namespace CreatedebtsDTOS {
     }
 }
 
-namespace GetdebtsDTOS {
-    export interface GetdebtsParamsInterface {
+namespace GetDebtsDTOS {
+    export interface GetDebtsParamsInterface {
         page: number,
         count: number,
         branch_id: number
     }
     
-    export const getdebtsQueryDto: DTO = {
+    export const getDebtsQueryDto: DTO = {
         page: {
             required: true,
             type: 'number',
@@ -98,5 +98,5 @@ namespace GetdebtsDTOS {
 export {
     debtsHelperDTOS,
     CreatedebtsDTOS,
-    GetdebtsDTOS
+    GetDebtsDTOS
 }

@@ -1,4 +1,4 @@
-import { CreatedebtsDTOS, GetdebtsDTOS } from "@dto/debts.dto";
+import { CreatedebtsDTOS, GetDebtsDTOS } from "@dto/debts.dto";
 import { debtsHelper } from "@helper/debts.helper";
 import { Schema } from "@database/schema";
 import { eq, sql } from "drizzle-orm";
@@ -6,22 +6,10 @@ import { db } from "@database/pg";
 
 export namespace DebtsModel {
 
-    export async function createdebts(body: { debtors: CreatedebtsDTOS.CreatedebtsInterface[] }) {
-        const { debtors } = body
-        
-        for (const debtor of debtors) {
-            const inserteddebtor = await debtsHelper.syncdebtorHelper(debtor.debtor)
-
-            for (const debt of debtor.debts) {
-                await debtsHelper.syncdebtHelper(inserteddebtor, debt)
-            }
-        }
-    }
-
-    export async function getdebts(params: GetdebtsDTOS.GetdebtsParamsInterface) {
+    export async function getDebts(params: GetDebtsDTOS.GetDebtsParamsInterface) {
         const { page, count, branch_id } = params
         
-        const filterDebsByBranchId = await db.select({
+        const filterDebtsByBranchId = await db.select({
             client: sql`json_build_object(
                 'pinfl', ${Schema.debtors.debtorPinfl},
                 'first_name', ${Schema.debtors.debtorFirstName},
@@ -47,7 +35,19 @@ export namespace DebtsModel {
         .offset(page-1)
         .limit(count)
 
-        return filterDebsByBranchId
+        return filterDebtsByBranchId
+    }
+
+    export async function createdebts(body: { debtors: CreatedebtsDTOS.CreatedebtsInterface[] }) {
+        const { debtors } = body
+        
+        for (const debtor of debtors) {
+            const inserteddebtor = await debtsHelper.syncdebtorHelper(debtor.debtor)
+
+            for (const debt of debtor.debts) {
+                await debtsHelper.syncdebtHelper(inserteddebtor, debt)
+            }
+        }
     }
 
 }
