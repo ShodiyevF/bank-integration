@@ -1,6 +1,6 @@
-import { CreatedebtsDTOS } from "@dto/debts.dto";
+import { CreateDebtsDTOS } from "@dto/debts.dto";
 
-function isCreatedebtsInterface(data: any): data is CreatedebtsDTOS.CreatedebtsInterface {                
+function isCreatedebtsInterface(data: any): data is CreateDebtsDTOS.CreateDebtsInterface {                
     for (const debtorObj of data) {
         if (typeof debtorObj !== 'object' || !debtorObj) return false;
         const debtor = debtorObj.debtor;
@@ -34,7 +34,7 @@ function isCreatedebtsInterface(data: any): data is CreatedebtsDTOS.CreatedebtsI
 }
 
 export namespace debtsConfigs {
-    export function createdebtValidation(value: CreatedebtsDTOS.CreatedebtsInterface[]): boolean {
+    export function createdebtValidation(value: CreateDebtsDTOS.CreateDebtsInterface[]): boolean {
         try {
             return isCreatedebtsInterface(value)
         } catch (error: any) {
