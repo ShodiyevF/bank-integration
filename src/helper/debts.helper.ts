@@ -1,12 +1,13 @@
 import { InferInsertModel, and, desc, eq } from "drizzle-orm";
-import { debtsHelperDTOS } from "@dto/debts.dto";
+import { DebtsHelperDTOS } from "@dto/debts.dto";
 import { Schema } from "@database/schema";
 import { db } from "@database/pg";
 
-export namespace debtsHelper {
+export namespace DebtsHelper {
     
     type debtor = InferInsertModel<typeof Schema.debtors>;
-    export async function syncdebtorHelper(payload: debtsHelperDTOS.SyncdebtorInterface): Promise<debtor> {
+
+    export async function syncDebtorHelper(payload: DebtsHelperDTOS.SyncDebtorInterface): Promise<debtor> {
         return await db.insert(Schema.debtors)
         .values({
             debtorPinfl: payload.debtor_pinfl,
@@ -34,7 +35,7 @@ export namespace debtsHelper {
         .then(data => data[0])
     }
 
-    export async function syncdebtHelper(debtor: debtor, debt: debtsHelperDTOS.SyncdebtInterface): Promise<boolean> {
+    export async function syncDebtHelper(debtor: debtor, debt: DebtsHelperDTOS.SyncDebtInterface): Promise<boolean> {
         const debtSearch = await db.select()
         .from(Schema.debts)
         .where(and(

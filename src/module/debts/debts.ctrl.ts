@@ -33,9 +33,9 @@ export namespace DebtsCtrl{
         }
     }
 
-    export async function createdebt(req: Request, res: Response) {
+    export async function createDebt(req: Request, res: Response) {
         try {
-            DebtsModel.createdebts(req.body)
+            DebtsModel.createDebts(req.body)
             return res.status(201).json({
                 status: 201,
                 message: 'muvaffaqiyatli'

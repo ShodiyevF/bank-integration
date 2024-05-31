@@ -1,8 +1,8 @@
 import { debtsConfigs } from "@module/debts/debts.config";
 import { DTO } from "@shared/validation/validation";
 
-namespace debtsHelperDTOS {
-    export interface SyncdebtorInterface {
+namespace DebtsHelperDTOS {
+    export interface SyncDebtorInterface {
         debtor_pinfl: string
         debtor_first_name: string
         debtor_last_name: string
@@ -13,15 +13,15 @@ namespace debtsHelperDTOS {
         debtor_passport_date: string
     }
 
-    export interface SyncdebtInterface {
+    export interface SyncDebtInterface {
         debt_branch_id: number
         debt_contract_id: number
         debt_sum: number
     }
 }
 
-namespace CreatedebtsDTOS {
-    export interface CreatedebtsInterface {
+namespace CreateDebtsDTOS {
+    export interface CreateDebtsInterface {
         debtor: {
             debtor_pinfl: string
             debtor_first_name: string
@@ -39,7 +39,7 @@ namespace CreatedebtsDTOS {
         }[]
     }
     
-    export const createdebtsMockdata: CreatedebtsInterface = {
+    export const createdebtsMockdata: CreateDebtsInterface = {
         debtor: {
             debtor_pinfl: '',
             debtor_first_name: '',
@@ -59,7 +59,7 @@ namespace CreatedebtsDTOS {
         ]    
     };
     
-    export const createdebtsDto: DTO = {
+    export const createDebtsDto: DTO = {
         debtors: {
             required: true,
             type: 'array',
@@ -96,7 +96,7 @@ namespace GetDebtsDTOS {
 }
 
 export {
-    debtsHelperDTOS,
-    CreatedebtsDTOS,
+    DebtsHelperDTOS,
+    CreateDebtsDTOS,
     GetDebtsDTOS
 }

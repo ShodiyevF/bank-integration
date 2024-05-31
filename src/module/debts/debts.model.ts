@@ -1,5 +1,5 @@
-import { CreatedebtsDTOS, GetDebtsDTOS } from "@dto/debts.dto";
-import { debtsHelper } from "@helper/debts.helper";
+import { CreateDebtsDTOS, GetDebtsDTOS } from "@dto/debts.dto";
+import { DebtsHelper } from "@helper/debts.helper";
 import { Schema } from "@database/schema";
 import { eq, sql } from "drizzle-orm";
 import { db } from "@database/pg";
@@ -38,14 +38,14 @@ export namespace DebtsModel {
         return filterDebtsByBranchId
     }
 
-    export async function createdebts(body: { debtors: CreatedebtsDTOS.CreatedebtsInterface[] }) {
+    export async function createDebts(body: { debtors: CreateDebtsDTOS.CreateDebtsInterface[] }) {
         const { debtors } = body
         
         for (const debtor of debtors) {
-            const inserteddebtor = await debtsHelper.syncdebtorHelper(debtor.debtor)
+            const insertedDebtor = await DebtsHelper.syncDebtorHelper(debtor.debtor)
 
             for (const debt of debtor.debts) {
-                await debtsHelper.syncdebtHelper(inserteddebtor, debt)
+                await DebtsHelper.syncDebtHelper(insertedDebtor, debt)
             }
         }
     }
