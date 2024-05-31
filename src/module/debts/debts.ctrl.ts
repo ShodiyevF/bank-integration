@@ -1,12 +1,12 @@
 import { controllerError } from "@lib/controllerError";
 import { Request, Response } from "express";
-import { debtsModel } from "./debts.model";
+import { DebtsModel } from "./debts.model";
 
 export namespace debtsCtrl{
 
     export async function createdebt(req: Request, res: Response) {
         try {
-            debtsModel.createdebts(req.body)
+            DebtsModel.createdebts(req.body)
             return res.status(201).json({
                 status: 201,
                 message: 'muvaffaqiyatli'
@@ -21,7 +21,7 @@ export namespace debtsCtrl{
             const page = req.query.page ? +req.query.page : 1
             const count = req.query.count ? +req.query.count : 1
             
-            const model = await debtsModel.getdebts({
+            const model = await DebtsModel.getdebts({
                 branch_id: req.query.branch_id ? +req.query.branch_id : 1,
                 count: count,
                 page: page,
