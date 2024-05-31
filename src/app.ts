@@ -3,6 +3,7 @@ dotnev.config({ path: `.env` });
 
 import express, { Application, Router } from 'express';
 import expressFileupload from 'express-fileupload';
+import expressBasicAuth from 'express-basic-auth';
 import cors from 'cors';
 
 import { logger, notFoundLogger } from '@middleware/logger.middleware';
@@ -14,6 +15,9 @@ export default function app(routes: Router[]) {
     const app: Application = express();
     const port: string = process.env.PORT || '3000';
 
+    const authLogin = process.env.LOGIN || ''
+    const authPassword = process.env.PASSWORD || ''
+    
     function listener() {
         app.listen(port, () => {
             console.info('=================================');
@@ -25,6 +29,10 @@ export default function app(routes: Router[]) {
 
     function initMiddlewares() {
         app.use(logger);
+        app.use(expressBasicAuth({
+            users: { [authLogin]: authPassword },
+            unauthorizedResponse: 'unauthorized'
+        }))
         app.use(cors(CORS_OPTIONS));
         app.use(express.json());
         app.use(express.urlencoded({ extended: true }));
