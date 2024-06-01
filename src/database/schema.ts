@@ -1,4 +1,4 @@
-import { integer, json, pgTable, smallint, text, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
+import { integer, bigint, json, pgTable, smallint, text, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 
 const requestTypes: [string, ...string[]] = [ "SUCCESS", "ERROR" ]
 
@@ -44,9 +44,17 @@ export const internalErrorsTable = pgTable('internal_errors', {
     ieCreatedAt: timestamp('ie_created_at').notNull().defaultNow(),
 })
 
+export const sumTable = pgTable('sum', {
+    sumId: uuid('sum_id').defaultRandom().primaryKey(),
+    sumModuleName: varchar('sum_module_name', { length: 64 }).notNull(),
+    sum: bigint('sum', { mode: "bigint" }).notNull(),
+    sumCreatedAt: timestamp('sum_created_at').notNull().defaultNow()
+})
+
 export namespace Schema {
     export const debtors = debtorsTable
     export const debts = debtsTable
     export const requests = requestsTable
     export const internalErrors = internalErrorsTable
+    export const sum = sumTable
 }
